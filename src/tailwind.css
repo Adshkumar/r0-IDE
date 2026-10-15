@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -11,16 +9,55 @@
     --border: #e6e5e0;
     --accent: #26251e;
     --text-primary: #26251e;
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+  html {
+    min-width: 320px;
+    scroll-behavior: smooth;
   }
   body {
     background-color: var(--canvas);
     color: var(--text-primary);
-    overflow-x: hidden;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    min-width: 320px;
+    overflow-x: clip;
+    font-family: inherit;
+    line-height: 1.6;
+  }
+  img,
+  video {
+    display: block;
+    max-width: 100%;
+  }
+  h1, h2, h3, h4 {
+    letter-spacing: -0.035em;
+  }
+  a:focus-visible, button:focus-visible {
+    outline: 3px solid #b45309;
+    outline-offset: 3px;
+  }
+  ::selection {
+    background: #26251e;
+    color: #ffffff;
   }
 }
 
 @layer utilities {
+  .workflow-diagram svg {
+    display: block;
+    width: 100%;
+    max-width: min(600px, 100%);
+    height: auto;
+    overflow: visible;
+  }
   .animate-on-scroll {
     opacity: 0;
     transform: translateY(20px);
@@ -36,5 +73,28 @@
   }
   @keyframes blink {
     50% { opacity: 0; }
+  }
+}
+
+@media (max-width: 400px) {
+  .workflow-diagram svg {
+    font-size: 12px;
+  }
+
+  .workflow-diagram .edgeLabel {
+    font-size: 11px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .animate-on-scroll {
+    opacity: 1;
+    transform: none;
   }
 }
