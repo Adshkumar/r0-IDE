@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import mermaid from 'mermaid';
 import SitePages from './SitePages';
 
 // --- Import your actual images ---
@@ -140,7 +139,7 @@ const Hero = () => {
       <div className="max-w-7xl mx-auto relative z-10 text-center">
         <div className="mb-5 inline-flex max-w-full items-center gap-2 rounded-full border border-[#e6e5e0] bg-[#f2f1ed] px-3 py-1 text-[10px] font-mono text-[#b45309] animate-fade-in sm:mb-6 md:mb-8 md:text-xs">
           <span className="w-1.5 h-1.5 rounded-full bg-[#b45309] animate-pulse"></span>
-          DESKTOP CODE EDITOR · AI AGENT WORKFLOWS
+          DESKTOP CODE EDITOR Â· AI AGENT WORKFLOWS
         </div>
         
         <h1 className="mb-4 text-[clamp(2rem,8.8vw,4.5rem)] font-extrabold leading-[1.08] tracking-tight text-[#26251e] animate-fade-in-up md:mb-6">
@@ -165,9 +164,9 @@ const Hero = () => {
         </p>
         
         <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2.5 text-[10px] text-[#8a877e] font-mono animate-fade-in-up sm:gap-x-5 md:gap-x-6 md:text-xs" style={{animationDelay: '0.3s'}}>
-          <span className="flex items-center gap-1.5"><svg className="w-3 h-3 md:w-3.5 md:h-3.5 text-[#b45309]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"/></svg> Agent · Ask · Plan</span>
+          <span className="flex items-center gap-1.5"><svg className="w-3 h-3 md:w-3.5 md:h-3.5 text-[#b45309]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"/></svg> Agent Â· Ask Â· Plan</span>
           <span className="flex items-center gap-1.5"><svg className="w-3 h-3 md:w-3.5 md:h-3.5 text-[#b45309]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"/></svg> Language servers + Vim mode</span>
-          <span className="flex items-center gap-1.5"><svg className="w-3 h-3 md:w-3.5 md:h-3.5 text-[#b45309]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"/></svg> Windows · macOS · Linux</span>
+          <span className="flex items-center gap-1.5"><svg className="w-3 h-3 md:w-3.5 md:h-3.5 text-[#b45309]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"/></svg> Windows Â· macOS Â· Linux</span>
         </div>
 
         <div className="relative mt-7 animate-fade-in-up sm:mt-10 md:mt-16" style={{animationDelay: '0.4s'}}>
@@ -179,7 +178,7 @@ const Hero = () => {
                 <span className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-yellow-400"></span>
                 <span className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-green-400"></span>
               </div>
-              <div className="truncate text-[9px] text-[#8a877e] font-mono sm:text-[10px] md:text-xs">r0 — Desktop IDE</div>
+              <div className="truncate text-[9px] text-[#8a877e] font-mono sm:text-[10px] md:text-xs">r0 â€” Desktop IDE</div>
               <div className="hidden shrink-0 text-[10px] text-[#8a877e] sm:block md:text-xs">Rust + Tauri</div>
             </div>
             <img src={mainBodyImg} alt="r0 desktop editor showing a project file explorer, code editor, tabs, and integrated terminal" className="block h-auto w-full object-contain" />
@@ -191,94 +190,222 @@ const Hero = () => {
 };
 
 const Features = () => {
-  const diagramRef = useRef<HTMLDivElement>(null);
-  const [diagramError, setDiagramError] = useState(false);
+  const [activeStep, setActiveStep] = useState(1);
 
-  useEffect(() => {
-    let cancelled = false;
+  const steps = [
+    {
+      number: "01",
+      name: "Plan",
+      title: "Start with the problem.",
+      description: "Describe what you want to build. Work out the approach before changing your project.",
+      tab: "AI / TASK",
+    },
+    {
+      number: "02",
+      name: "Build",
+      title: "Stay close to your code.",
+      description: "Move through your project, edit files, and use AI assistance without losing context.",
+      tab: "APP.TSX",
+    },
+    {
+      number: "03",
+      name: "Verify",
+      title: "Run it. Learn from it.",
+      description: "Use your terminal to run commands, inspect output, and refine the implementation.",
+      tab: "TERMINAL",
+    },
+    {
+      number: "04",
+      name: "Ship",
+      title: "Review before you push.",
+      description: "Inspect your changes and commit and push to GitHub when you are ready.",
+      tab: "SOURCE CONTROL",
+    },
+  ];
 
-    mermaid.initialize({
-      startOnLoad: false,
-      securityLevel: 'strict',
-      theme: 'base',
-      themeVariables: {
-        fontFamily: 'Inter, system-ui, sans-serif',
-        fontSize: '14px',
-        primaryColor: '#ffffff',
-        primaryTextColor: '#26251e',
-        primaryBorderColor: '#e6e5e0',
-        lineColor: '#b45309',
-        secondaryColor: '#fbf0e4',
-        tertiaryColor: '#f7f7f4',
-      },
-      flowchart: {
-        curve: 'linear',
-        nodeSpacing: 24,
-        rankSpacing: 24,
-        htmlLabels: false,
-      },
-    });
-
-    const workflow = `flowchart TB
-      task([Describe task]) --> ai["AI plan"]
-      ai --> build["Code & run checks"]
-      build --> review["Review changes"]
-      review -->|Ready| git([Commit & push])
-      review -->|Adjust| build
-      classDef startEnd fill:#26251e,stroke:#26251e,color:#ffffff,stroke-width:1.5px
-      classDef action fill:#ffffff,stroke:#e6e5e0,color:#26251e,stroke-width:1.5px
-      classDef focus fill:#fbf0e4,stroke:#d5a06a,color:#713f12,stroke-width:1.5px
-      class task,git startEnd
-      class ai,review action
-      class build focus`;
-
-    mermaid.render('r0-workflow-diagram', workflow)
-      .then(({ svg }) => {
-        if (!cancelled && diagramRef.current) {
-          diagramRef.current.innerHTML = svg;
-        }
-      })
-      .catch((error: unknown) => {
-        console.error('Unable to render the r0 workflow diagram.', error);
-        if (!cancelled) {
-          setDiagramError(true);
-        }
-      });
-
-    return () => {
-      cancelled = true;
-    };
-  }, []);
+  const step = steps[activeStep];
 
   return (
-    <section id="features" className="scroll-mt-14 border-t border-[#e6e5e0] bg-[#f2f1ed] px-4 py-10 sm:px-6 sm:py-12 md:scroll-mt-16 md:py-24 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="mb-7 text-center animate-on-scroll sm:mb-8 md:mb-10">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#b45309] mb-3">A clearer path from idea to release</p>
-          <h2 className="mb-3 text-[clamp(1.8rem,7vw,3rem)] font-bold leading-tight text-[#26251e] sm:mb-4">Your whole workflow, connected</h2>
-          <p className="mx-auto max-w-2xl text-sm leading-6 text-[#5c5a52] sm:text-base sm:leading-relaxed md:text-lg">Plan with AI, build in your editor, run and review your work, then ship it — all without breaking focus.</p>
+    <section id="features" className="scroll-mt-16 border-t border-[#e6e5e0] bg-[#f2f1ed] px-4 py-14 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-8 flex flex-col gap-4 md:mb-12 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p className="mb-3 font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#b45309] sm:text-xs">Inside the r0 workflow</p>
+            <h2 className="max-w-2xl text-3xl font-bold leading-tight tracking-tight text-[#26251e] sm:text-4xl lg:text-5xl">
+              Less context switching.<br className="hidden sm:block" /> More making.
+            </h2>
+          </div>
+          <p className="max-w-lg text-sm leading-7 text-[#5c5a52] sm:text-base">
+            From the first idea to the final commit, keep your tools and your attention in one development flow.
+          </p>
         </div>
 
-        <div className="mx-auto max-w-3xl animate-on-scroll">
-          {diagramError ? (
-            <div role="alert" className="mx-auto max-w-2xl text-center text-sm text-[#5c5a52]">
-              <p className="font-semibold text-[#26251e]">The workflow diagram could not be displayed.</p>
-              <p className="mt-2">Describe a task, plan with AI, edit and run your code, review the diff, then commit and push.</p>
+        <div className="grid overflow-hidden rounded-2xl border border-[#dedcd3] bg-[#fbfbf8] shadow-[0_20px_65px_-38px_rgba(38,37,30,0.4)] lg:grid-cols-[0.78fr_1.22fr]">
+          <div className="flex flex-col p-4 sm:p-6 lg:p-8">
+            <div className="mb-5 flex items-center justify-between">
+              <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-[#8a877e]">Your workflow</span>
+              <span className="rounded-full border border-[#e6e5e0] px-2.5 py-1 text-[10px] text-[#77746b]">04 stages</span>
             </div>
-          ) : (
-            <div
-              ref={diagramRef}
-              role="img"
-              aria-label="Development workflow: describe a task, get AI assistance, edit in CodeMirror, run in the terminal, review the diff, and commit and push. If checks need work, return to the editor."
-              className="workflow-diagram mx-auto flex max-w-full justify-center"
-            />
-          )}
+
+            <div className="grid grid-cols-2 gap-2 lg:grid-cols-1 lg:gap-2">
+              {steps.map((item, index) => (
+                <button
+                  key={item.number}
+                  type="button"
+                  onClick={() => setActiveStep(index)}
+                  aria-pressed={activeStep === index}
+                  className={`flex min-h-[76px] items-center gap-3 rounded-xl border p-3 text-left transition-colors sm:p-4 ${
+                    activeStep === index
+                      ? "border-[#d5a06a] bg-[#fbf0e4]"
+                      : "border-transparent hover:border-[#e6e5e0] hover:bg-white"
+                  }`}
+                >
+                  <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg font-mono text-xs ${
+                    activeStep === index ? "bg-[#26251e] text-white" : "bg-[#eeede7] text-[#77746b]"
+                  }`}>{item.number}</span>
+                  <span className="min-w-0">
+                    <span className="block text-sm font-semibold text-[#26251e]">{item.name}</span>
+                    <span className="mt-1 block text-xs text-[#77746b]">
+                      {["Define the task", "Work in your files", "Use the terminal", "Review and commit"][index]}
+                    </span>
+                  </span>
+                  <span className={`ml-auto hidden text-sm sm:inline ${activeStep === index ? "text-[#92400e]" : "text-[#aaa79d]"}`}>â†—</span>
+                </button>
+              ))}
+            </div>
+
+            <div className="mt-5 flex-1 rounded-xl bg-[#26251e] p-4 text-white sm:mt-6 sm:p-5">
+              <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.16em] text-[#d5a06a]">Stage {step.number} / 04</p>
+              <h3 className="text-xl font-semibold tracking-tight sm:text-2xl">{step.title}</h3>
+              <p className="mt-3 text-xs leading-6 text-[#d0cec5] sm:text-sm">{step.description}</p>
+              <div className="mt-5 flex items-center gap-2 border-t border-white/10 pt-4">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#d5a06a]" />
+                <span className="font-mono text-[10px] text-[#aaa79d]">SELECT A STAGE TO EXPLORE</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="min-w-0 border-t border-[#e6e5e0] bg-[#1f201c] p-3 sm:p-5 lg:border-l lg:border-t-0 lg:p-7">
+            <div className="overflow-hidden rounded-xl border border-white/10 bg-[#20201c] text-[#eeece4] shadow-2xl">
+              <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 bg-[#292821] px-3 py-3 sm:px-4">
+                <div className="flex items-center gap-2">
+                  <span className="h-2.5 w-2.5 rounded-full bg-[#d97757]" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-[#d9ad58]" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-[#76a777]" />
+                  <span className="ml-2 font-mono text-[10px] text-[#c7c3b7]">r0 / workspace</span>
+                </div>
+                <span className="rounded border border-white/10 px-2 py-1 font-mono text-[9px] tracking-wider text-[#d5a06a]">{step.tab}</span>
+              </div>
+
+              <div className="grid min-h-[290px] sm:min-h-[340px] md:grid-cols-[112px_1fr]">
+                <aside className="hidden border-r border-white/10 bg-[#24241f] p-3 md:block">
+                  <p className="mb-3 font-mono text-[9px] uppercase tracking-wider text-[#858276]">Explorer</p>
+                  {["src", "  App.tsx", "  main.tsx", "components", "package.json"].map((file, index) => (
+                    <div key={file} className={`truncate rounded px-2 py-2 font-mono text-[10px] ${
+                      (activeStep === 1 && index === 1) || (activeStep === 3 && index === 4)
+                        ? "bg-white/10 text-[#e8bc8c]"
+                        : "text-[#aaa79d]"
+                    }`}>{file}</div>
+                  ))}
+                </aside>
+
+                <div className="flex min-w-0 flex-col">
+                  <div className="flex items-center gap-2 border-b border-white/10 px-4 py-3">
+                    <span className="font-mono text-[10px] text-[#d5a06a]">{step.tab}</span>
+                    <span className="ml-auto font-mono text-[9px] text-[#858276]">EXAMPLE PREVIEW</span>
+                  </div>
+
+                  {activeStep === 0 && (
+                    <div className="flex flex-1 flex-col justify-center p-5 sm:p-7">
+                      <p className="mb-4 font-mono text-[10px] uppercase tracking-wider text-[#d5a06a]">Task brief</p>
+                      <div className="rounded-lg border border-white/10 bg-white/[0.035] p-4 sm:p-5">
+                        <p className="text-sm leading-7 text-[#eeece4] sm:text-base">â€œUnderstand this project and help me implement a new feature.â€</p>
+                        <div className="mt-4 border-t border-white/10 pt-3 font-mono text-[10px] leading-6 text-[#aaa79d]">
+                          <p>01 / Explore the codebase</p>
+                          <p>02 / Identify relevant files</p>
+                          <p>03 / Plan the implementation</p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {activeStep === 1 && (
+                    <div className="flex-1 overflow-hidden p-4 sm:p-6">
+                      <p className="mb-4 font-mono text-[10px] text-[#858276]">src / App.tsx</p>
+                      <div className="space-y-2 overflow-hidden font-mono text-[11px] leading-6 sm:text-xs">
+                        <p><span className="text-[#a99bd5]">import</span> <span className="text-[#e8ece2]">{"{ useState }"}</span> <span className="text-[#aaa79d]">from</span> <span className="text-[#d5a06a]">'react'</span>;</p>
+                        <p className="text-[#858276]">{"// A focused change, in context"}</p>
+                        <p><span className="text-[#a99bd5]">function</span> <span className="text-[#8fc5a1]">Feature</span>() {"{"}</p>
+                        <p className="pl-4 text-[#bdb9ad]">{"// Keep the implementation readable"}</p>
+                        <p className="rounded bg-[#8fc5a1]/10 py-1 pl-4 text-[#8fc5a1]">{"const [ready, setReady] = useState(false);"}</p>
+                        <p className="pl-4 text-[#bdb9ad]">{"// Iterate and review the result"}</p>
+                        <p>{"}"}</p>
+                      </div>
+                      <div className="mt-6 flex items-center gap-2 border-t border-white/10 pt-4 font-mono text-[10px] text-[#aaa79d]">
+                        <span className="text-[#8fc5a1]">â—</span> Editing stays in your hands
+                      </div>
+                    </div>
+                  )}
+
+                  {activeStep === 2 && (
+                    <div className="flex flex-1 flex-col justify-end p-4 sm:p-6">
+                      <p className="mb-4 font-mono text-[10px] uppercase tracking-wider text-[#d5a06a]">Terminal Â· sample session</p>
+                      <div className="space-y-3 font-mono text-[11px] leading-5 sm:text-xs">
+                        <p><span className="text-[#d5a06a]">$</span> npm run build</p>
+                        <p className="text-[#bdb9ad]">Run the project's configured checks...</p>
+                        <p className="rounded bg-white/[0.035] p-3 text-[#8fc5a1]">âœ“ Example output â€” not a live build</p>
+                        <p className="border-t border-white/10 pt-3 text-[#aaa79d]">Inspect errors, make a fix, and rerun.</p>
+                      </div>
+                    </div>
+                  )}
+
+                  {activeStep === 3 && (
+                    <div className="flex flex-1 flex-col justify-center p-4 sm:p-6">
+                      <p className="mb-4 font-mono text-[10px] uppercase tracking-wider text-[#d5a06a]">Review changes Â· example</p>
+                      <div className="space-y-2">
+                        {[
+                          { file: "App.tsx", added: "+12", removed: "-3" },
+                          { file: "Feature.tsx", added: "+24", removed: "-0" },
+                          { file: "README.md", added: "+5", removed: "-1" },
+                        ].map((file) => (
+                          <div key={file.file} className="flex items-center gap-3 rounded-lg border border-white/10 px-3 py-3">
+                            <span className="min-w-0 flex-1 truncate font-mono text-xs text-[#e8ece2]">{file.file}</span>
+                            <span className="font-mono text-[10px] text-[#8fc5a1]">{file.added}</span>
+                            <span className="font-mono text-[10px] text-[#d98275]">{file.removed}</span>
+                          </div>
+                        ))}
+                      </div>
+                      <div className="mt-4 rounded-lg bg-[#8fc5a1]/10 p-3 font-mono text-[10px] text-[#8fc5a1]">Review â†’ Commit â†’ Push</div>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between gap-3 border-t border-white/10 bg-[#292821] px-4 py-3">
+                <span className="font-mono text-[9px] text-[#aaa79d]">IDE Â· AI Â· TERMINAL Â· GIT</span>
+                <div className="flex gap-1.5">
+                  {steps.map((item, index) => (
+                    <button
+                      key={item.number}
+                      type="button"
+                      onClick={() => setActiveStep(index)}
+                      aria-label={`Preview ${item.name} stage`}
+                      aria-pressed={activeStep === index}
+                      className={`h-1.5 rounded-full transition-all ${
+                        activeStep === index ? "w-6 bg-[#d5a06a]" : "w-2 bg-[#77746b] hover:bg-[#aaa79d]"
+                      }`}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+            <p className="mt-3 text-center text-[10px] leading-5 text-[#aaa79d]">Illustrative interface Â· sample code and output, not a live IDE session.</p>
+          </div>
         </div>
       </div>
     </section>
   );
 };
-
 const GitWorkflowDemo = () => {
   return (
     <section id="workflow" className="scroll-mt-14 border-t border-[#e6e5e0] bg-[#f7f7f4] px-4 py-10 sm:px-6 sm:py-12 md:scroll-mt-16 md:py-24 lg:px-8">
@@ -380,7 +507,7 @@ const AdvancedFeatures = () => {
                 <div className="flex flex-wrap gap-x-4 gap-y-2 border-t border-[#eeede8] pt-4">
                   {feature.links.map((link) => (
                     <a key={link.href} href={link.href} className="text-xs font-semibold text-[#92400e] underline-offset-4 hover:text-[#713f12] hover:underline">
-                      {link.label} <span aria-hidden="true">↗</span>
+                      {link.label} <span aria-hidden="true">â†—</span>
                     </a>
                   ))}
                 </div>
@@ -396,14 +523,14 @@ const AdvancedFeatures = () => {
               <h3 className="text-base font-bold text-[#26251e] sm:text-lg">Built around real project workflows.</h3>
             </div>
             <a href="/docs/features" className="inline-flex min-h-10 items-center text-sm font-semibold text-[#92400e] hover:text-[#713f12]">
-              Explore all features <span className="ml-1" aria-hidden="true">→</span>
+              Explore all features <span className="ml-1" aria-hidden="true">â†’</span>
             </a>
           </div>
           <div className="flex flex-wrap gap-2">
             {[
               { label: 'GitHub pull requests & Actions', href: '/docs/github-integration' },
-              { label: 'SQLite · PostgreSQL · MySQL', href: '/docs/database' },
-              { label: 'MongoDB · Redis · DuckDB', href: '/docs/database' },
+              { label: 'SQLite Â· PostgreSQL Â· MySQL', href: '/docs/database' },
+              { label: 'MongoDB Â· Redis Â· DuckDB', href: '/docs/database' },
               { label: 'MCP tool servers', href: '/docs/ai#agent-customization' },
               { label: 'Extensions & themes', href: '/docs/extensions' },
               { label: 'Remote workspaces', href: '/docs/collaboration' },
@@ -426,7 +553,7 @@ const AdvancedFeatures = () => {
           </div>
           <div className="flex flex-wrap gap-3">
             <a href="https://github.com/Adshkumar/r0" target="_blank" rel="noopener noreferrer" className="inline-flex min-h-10 items-center rounded-md bg-white px-4 text-xs font-semibold text-[#26251e] transition-colors hover:bg-[#f2f1ed]">
-              Browse GitHub <span className="ml-2" aria-hidden="true">↗</span>
+              Browse GitHub <span className="ml-2" aria-hidden="true">â†—</span>
             </a>
             <a href="https://github.com/Adshkumar/r0/releases" target="_blank" rel="noopener noreferrer" className="inline-flex min-h-10 items-center rounded-md border border-white/25 px-4 text-xs font-semibold text-white transition-colors hover:border-white/60">
               Releases
@@ -609,6 +736,109 @@ const Footer = () => {
   );
 };
 
+
+const InstallCommand = () => {
+  const command = "irm https://r0-ide.vercel.app/install.ps1 | iex";
+  const [copied, setCopied] = React.useState(false);
+
+  const copyCommand = async () => {
+    try {
+      await navigator.clipboard.writeText(command);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 1800);
+    } catch {
+      window.prompt("Copy the r0 install command:", command);
+    }
+  };
+
+  return (
+    <section
+      id="install"
+      className="w-full bg-[#f7f7f4] px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24"
+    >
+      <div className="mx-auto w-full max-w-6xl">
+        <div className="mx-auto max-w-3xl text-center">
+          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.22em] text-[#b45309] sm:text-sm">
+            Get started with r0
+          </p>
+
+          <h2 className="text-3xl font-semibold leading-tight tracking-[-0.04em] text-[#26251e] sm:text-4xl md:text-5xl">
+            Your next project starts here.
+          </h2>
+
+          <p className="mx-auto mt-5 max-w-xl text-sm leading-7 text-[#5c5a52] sm:text-base">
+            Install r0 from PowerShell and get your development environment
+            ready. Copy the command below to get started.
+          </p>
+        </div>
+
+        <div className="mx-auto mt-10 max-w-3xl overflow-hidden rounded-2xl border border-[#e6e5e0] bg-white shadow-[0_18px_60px_rgba(38,37,30,0.07)] sm:mt-12">
+          <div className="flex items-center justify-between gap-3 border-b border-[#e6e5e0] bg-[#f2f1ed] px-4 py-3 sm:px-5">
+            <div className="flex min-w-0 items-center gap-3">
+              <div className="flex shrink-0 items-center gap-1.5" aria-hidden="true">
+                <span className="h-2.5 w-2.5 rounded-full bg-[#d6a49a]" />
+                <span className="h-2.5 w-2.5 rounded-full bg-[#d8bd80]" />
+                <span className="h-2.5 w-2.5 rounded-full bg-[#9db69c]" />
+              </div>
+              <span className="truncate font-mono text-xs text-[#5c5a52] sm:text-sm">
+                Windows PowerShell
+              </span>
+            </div>
+
+            <span className="shrink-0 rounded-md border border-[#e6e5e0] bg-white px-2 py-1 text-[10px] font-medium uppercase tracking-wider text-[#5c5a52] sm:text-xs">
+              Install
+            </span>
+          </div>
+
+          <div className="p-4 sm:p-6">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-3">
+              <div className="min-w-0 flex-1 overflow-x-auto rounded-xl bg-[#26251e] p-4 sm:p-5">
+                <code className="block whitespace-nowrap font-mono text-xs leading-7 sm:text-sm">
+                  <span className="select-none text-[#d6a15c]">PS&nbsp;›&nbsp;</span>
+                  <span className="text-[#f4c98b]">irm</span>
+                  <span className="text-[#f4f0e6]"> https://r0-ide.vercel.app/install.ps1 </span>
+                  <span className="text-[#f4c98b]">| iex</span>
+                </code>
+              </div>
+
+              <button
+                type="button"
+                onClick={copyCommand}
+                className="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-xl bg-[#b45309] px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#92400e] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#b45309] focus-visible:ring-offset-2 sm:min-h-0"
+              >
+                {copied ? "Copied!" : "Copy command"}
+              </button>
+            </div>
+
+            <div className="mt-5 flex items-start gap-3 border-t border-[#e6e5e0] pt-5">
+              <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#f8ead9] text-xs font-bold text-[#92400e]">
+                i
+              </span>
+              <p className="text-xs leading-6 text-[#5c5a52] sm:text-sm">
+                Open PowerShell, paste the command, and press Enter. Only run
+                the installer after verifying that the script comes from the
+                official r0 website.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <p className="mt-6 text-center text-xs leading-6 text-[#5c5a52] sm:text-sm">
+          Prefer downloading manually?{" "}
+          <a
+            href="https://github.com/Adshkumar/r0/releases"
+            target="_blank"
+            rel="noreferrer"
+            className="font-semibold text-[#92400e] underline decoration-[#d6b18b] underline-offset-4 hover:text-[#78350f]"
+          >
+            Browse r0 releases
+          </a>
+        </p>
+      </div>
+    </section>
+  );
+};
+
 const App: React.FC = () => {
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -639,6 +869,7 @@ const App: React.FC = () => {
       <Navbar />
       <main className="flex-grow">
         <Hero />
+      <InstallCommand />
         <Features />
         <GitWorkflowDemo />
         <AdvancedFeatures />
