@@ -7,18 +7,18 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        background: '#121212',
-        surface: '#181818',
-        border: '#2a2a2a',
-        text: {
-          primary: '#ffffff',
-          secondary: '#a0a0a0',
-          muted: '#666666',
-        },
-        accent: '#ffffff',
+        canvas: 'var(--canvas)',
+        'canvas-secondary': 'var(--canvas-secondary)',
+        surface: 'var(--surface)',
+        border: 'var(--border)',
+        primary: 'var(--text-primary)',
+        secondary: 'var(--text-secondary)',
+        muted: 'var(--text-muted)',
+        accent: 'var(--accent)',
+        amber: 'var(--accent-amber)',
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        sans: ['Inter', 'system-ui', 'sans-serif'],
         mono: ['JetBrains Mono', 'monospace'],
       },
     },
